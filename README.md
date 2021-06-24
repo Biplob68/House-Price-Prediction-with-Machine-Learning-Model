@@ -48,6 +48,8 @@ df_test['LotFrontage'] = df_test['LotFrontage'].fillna(df_test['LotFrontage'].me
 
 Dropping the columns which have lot of missing values
 ```
+
+```
 df.drop(['PoolQC'],axis = 1, inplace = True) # dropping the Alley features as it has a lot of missing values for train
 df_test.drop(['PoolQC'],axis = 1, inplace = True) # dropping the Alley features as it has a lot of missing values for test
 df.drop(['Fence'],axis = 1, inplace = True) # dropping the Alley features as it has a lot of missing values for train
