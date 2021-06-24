@@ -116,3 +116,92 @@ df_Test.drop(['SalePrice'],axis=1,inplace=True)
 X_train=df_Train.drop(['SalePrice'],axis=1)
 y_train=df_Train['SalePrice']
 ```
+
+## 6. Base Model Performance (XGBoost)
+```
+# implementing XGBoost regressor
+import xgboost
+classifier=xgboost.XGBRegressor()
+classifier.fit(X_train,y_train)
+# predicting the house prices
+y_predict = classifier.predict(df_Test)
+```
+
+``` 
+##Creating Sample Submission file
+pred=pd.DataFrame(y_predict)
+sub_df=pd.read_csv('sample_submission.csv')
+datasets=pd.concat([sub_df['Id'],pred],axis=1)
+datasets.columns=['Id','SalePrice']
+datasets.to_csv('sub1.csv',index=False)
+```
+## 7. Hyperparameter Tuning
+```
+
+regressor=xgboost.XGBRegressor()
+booster=['gbtree','gblinear']
+base_score=[0.25,0.5,0.75,1]
+
+## Hyper Parameter Optimization
+
+n_estimators = [100, 500, 900, 1100, 1500]
+max_depth = [2, 3, 5, 10, 15]
+
+learning_rate=[0.05,0.1,0.15,0.20]
+min_child_weight=[1,2,3,4]
+
+# Defining the grid of hyperparameters to search
+hyperparameter_grid = {
+    'n_estimators': n_estimators,
+    'max_depth':max_depth,
+    'learning_rate':learning_rate,
+    'min_child_weight':min_child_weight,
+    'booster':booster,
+    'base_score':base_score
+    }
+```
+
+``` 
+# Set up the random search with 4-fold cross validation
+from sklearn.model_selection import RandomizedSearchCV
+
+regressor = xgboost.XGBRegressor()
+random_cv = RandomizedSearchCV(estimator=regressor,
+            param_distributions=hyperparameter_grid,
+            cv=5, n_iter=50,
+            scoring = 'neg_mean_absolute_error',n_jobs = 4,
+            verbose = 5, 
+            return_train_score = True,
+            random_state=42)
+random_cv.fit(X_train,y_train)
+# finding the best estimate
+random_cv.best_estimator_
+
+```
+
+## 8. Final Model
+```
+# substituting the best parameters
+regressor=xgboost.XGBRegressor(base_score=0.25, booster='gbtree', colsample_bylevel=1,
+             colsample_bynode=1, colsample_bytree=1, gamma=0, gpu_id=-1,
+             importance_type='gain', interaction_constraints='',
+             learning_rate=0.1, max_delta_step=0, max_depth=2,
+             min_child_weight=1, missing=None, monotone_constraints='()',
+             n_estimators=900, n_jobs=0, num_parallel_tree=1, random_state=0,
+             reg_alpha=0, reg_lambda=1, scale_pos_weight=1, subsample=1,
+             tree_method='exact', validate_parameters=1, verbosity=None)
+regressor.fit(X_train,y_train)
+y_predict1 = regressor.predict(df_Test)
+```
+
+```
+##Create Sample Submission file and Submission
+pred=pd.DataFrame(y_predict1)
+sub_df=pd.read_csv('sample_submission.csv')
+datasets=pd.concat([sub_df['Id'],pred],axis=1)
+datasets.columns=['Id','SalePrice']
+datasets.to_csv('housepricetuned.csv',index=False)
+```
+
+## 8. Visualize Results
+RMSE score of 0.14036
