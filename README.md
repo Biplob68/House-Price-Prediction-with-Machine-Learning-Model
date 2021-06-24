@@ -4,6 +4,8 @@ The aim of this project is to identify the suitable model to make the prediction
 
 
 ## Steps in House Price Prediction
-1. Loading data
-2. Data Exploration
+1. Import the required libraries
+2. Load the data
+2.1  Features with Null value
+
  
