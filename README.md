@@ -84,6 +84,7 @@ def category_onehot_multcols(multcolumns):
     return df_final
 
 ```
+```
 # making a copy of dataframe for future use
 main_df=df.copy()
 # concanating the test and train files to implement one hot encoding
