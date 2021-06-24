@@ -14,14 +14,14 @@ The aim of this project is to identify the suitable model to make the prediction
 8. Final Model
 9. Visualize Results
 
-## 1. Import the required libraries
+## 1. Import the Required Libraries
 ```
 import numpy as np # linear algebra
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
-## 2. Load the data
+## 2. Load the Data
 ```
 df = pd.read_csv('train.csv')
 df_test = pd.read_csv('test.csv')
