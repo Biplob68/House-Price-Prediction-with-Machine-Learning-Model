@@ -6,6 +6,11 @@ The aim of this project is to identify the suitable model to make the prediction
 ## Steps in House Price Prediction
 1. Import the required libraries
 2. Load the data
-2.1  Features with Null value
+3. Data Cleaning
+4. Data transformation
+5. Base Model Performance (XGBoost)
+6. Hyperparameter Tuning
+7. Final Model
+8. Visualize Results
 
  
