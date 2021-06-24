@@ -60,8 +60,9 @@ df_test.drop(['FireplaceQu'],axis = 1, inplace = True) # dropping the Alley feat
 
 ```
 
-```
+
 ## 5. Data Transformation
+```
 # function to convert categorical variables to one hot encoding
 def category_onehot_multcols(multcolumns):
     df_final=final_df
