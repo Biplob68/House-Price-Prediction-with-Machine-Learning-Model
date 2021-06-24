@@ -46,9 +46,8 @@ df_test['MSZoning'] = df_test['MSZoning'].fillna(df_test['MSZoning'].mode()[0]) 
 df['LotFrontage'] = df['LotFrontage'].fillna(df['LotFrontage'].mean()) # replacing with mean for train
 df_test['LotFrontage'] = df_test['LotFrontage'].fillna(df_test['LotFrontage'].mean()) # replacing with mean for train
 
-Dropping the columns which have lot of missing values
 ```
-
+Dropping the columns which have lot of missing values
 ```
 df.drop(['PoolQC'],axis = 1, inplace = True) # dropping the Alley features as it has a lot of missing values for train
 df_test.drop(['PoolQC'],axis = 1, inplace = True) # dropping the Alley features as it has a lot of missing values for test
@@ -60,9 +59,9 @@ df.drop(['FireplaceQu'],axis = 1, inplace = True) # dropping the Alley features 
 df_test.drop(['FireplaceQu'],axis = 1, inplace = True) # dropping the Alley features as it has a lot of missing values for test
 
 ```
+
 ```
 ## 5. Data Transformation
-```
 # function to convert categorical variables to one hot encoding
 def category_onehot_multcols(multcolumns):
     df_final=final_df
@@ -86,6 +85,7 @@ def category_onehot_multcols(multcolumns):
     return df_final
 
 ```
+
 ```
 # making a copy of dataframe for future use
 main_df=df.copy()
@@ -93,19 +93,23 @@ main_df=df.copy()
 final_df=pd.concat([df,df_test],axis=0)
 final_df=category_onehot_multcols(columns)
 ```
+
 ```
 # removing duplicated columns
 final_df =final_df.loc[:,~final_df.columns.duplicated()]
 ```
+
 ```
 # separating the test and training data
 df_Train=final_df.iloc[:1459,:]
 df_Test=final_df.iloc[1459:,:]
 ```
+
 ```
 # dropping the "SalePrice" column from test data
 df_Test.drop(['SalePrice'],axis=1,inplace=True)
 ```
+
 ```
 # preparing data for feeding into model
 X_train=df_Train.drop(['SalePrice'],axis=1)
